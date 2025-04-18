@@ -28,6 +28,7 @@ Adm
 id pk uuid STRING
 name unique not_null STRING
 cpf STRING
+condId
 
 Place
 id pk uuid STRING
