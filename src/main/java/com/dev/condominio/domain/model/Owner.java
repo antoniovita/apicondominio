@@ -31,4 +31,5 @@ public class Owner {
     @Column(nullable = false, unique = false)
     private Boolean subscriptionActive;
 
+    private Subscription subscription;
 }

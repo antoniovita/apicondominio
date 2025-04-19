@@ -11,6 +11,7 @@ public class Reserve {
     @GeneratedValue
     private UUID id;
 
+    @Column(nullable = false, unique = true)
     private LocalDate date;
 
     @ManyToOne
