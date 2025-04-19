@@ -26,5 +26,4 @@ public class Payment {
     @OneToOne(mappedBy = "payment")
     private Reserve reserve;
 
-
 }

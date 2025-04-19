@@ -1,9 +1,6 @@
 package com.dev.condominio.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,5 +37,9 @@ public class Cond {
 
     @OneToMany(mappedBy = "cond")
     private List<Reserve> reserve;
+
+    @OneToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private Owner owner;
 
 }
