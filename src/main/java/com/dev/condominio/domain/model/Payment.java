@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Table(name = "payment")
 public class Payment {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false)

@@ -1,15 +1,16 @@
 package com.dev.condominio.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
+
+@Table(name = "owner")
+@Entity
 public class Owner {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, unique = true)

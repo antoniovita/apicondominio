@@ -5,10 +5,13 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+
+@Table(name = "cond")
 @Entity
 public class Cond {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, unique = true)

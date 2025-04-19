@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, unique = true)

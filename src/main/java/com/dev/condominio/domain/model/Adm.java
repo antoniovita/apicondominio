@@ -3,6 +3,7 @@ package com.dev.condominio.domain.model;
 import jakarta.persistence.*;
 import java.util.UUID;
 
+@Table(name = "adm")
 @Entity
 public class Adm {
 
