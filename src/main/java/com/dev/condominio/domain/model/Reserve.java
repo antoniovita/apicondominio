@@ -2,6 +2,7 @@ package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +14,7 @@ public class Reserve {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "place_id", nullable = false)

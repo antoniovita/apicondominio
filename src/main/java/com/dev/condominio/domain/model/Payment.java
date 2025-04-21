@@ -3,6 +3,7 @@ package com.dev.condominio.domain.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +15,7 @@ public class Payment {
     private UUID id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(nullable = true, unique = false)
     private Integer amount;

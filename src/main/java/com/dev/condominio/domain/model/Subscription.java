@@ -1,24 +1,39 @@
 package com.dev.condominio.domain.model;
 
+import com.dev.condominio.domain.model.Owner;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "subscription")
 public class Subscription {
+
     @Id
     @GeneratedValue
     private UUID id;
 
-    private LocalDate startDate;
+    @Column(nullable = false, unique = true)
+    private String stripeSubscriptionId;
 
-    private LocalDate endDate;
+    @Column(nullable = false, unique = false)
+    private String stripePriceId;
+
+    @Column(nullable = false, unique = false)
+    private String status;
+
+
+    private boolean cancelAtPeriodEnd;
+
+    private LocalDateTime currentPeriodStart;
+    private LocalDateTime currentPeriodEnd;
+
 
     private String receiptUrl;
 
     @OneToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private Owner owner;
+
 }
