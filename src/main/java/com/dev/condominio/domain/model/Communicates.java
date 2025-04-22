@@ -1,6 +1,10 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,7 +12,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "warning")
+@Table(name = "table_warning")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Communicates {
 
     @Id

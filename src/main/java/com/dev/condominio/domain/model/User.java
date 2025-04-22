@@ -1,15 +1,26 @@
 package com.dev.condominio.domain.model;
 
+import com.dev.condominio.domain.security.types.UserType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import com.dev.condominio.domain.security.Permission;
 
 @Entity
-@Table(name = "user")
+@Table(name = "table_user")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -28,15 +39,17 @@ public class User {
     @Column(nullable = false, unique = false)
     private Integer apt;
 
-    @Column(nullable = false, unique = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserType type;
+
 
     @ManyToOne
     @JoinColumn(name = "cond_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Cond cond;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user")
     private List<Reserve> reserve;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -47,6 +60,13 @@ public class User {
     )
     @Column(name = "permission", nullable = false)
     private Set<Permission> permissions = new HashSet<>();
+
+    @PreUpdate
+    private void assignDefaultPermissions() {
+        if (permissions == null || permissions.isEmpty()) {
+            this.permissions = new HashSet<>(type.getDefaultPermissions());
+        }
+    }
 
 
 

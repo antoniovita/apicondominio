@@ -1,12 +1,20 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 
-@Table(name = "owner")
+@Table(name = "table_owner")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Owner {
 
     @Id

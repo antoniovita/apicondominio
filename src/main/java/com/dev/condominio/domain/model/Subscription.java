@@ -2,6 +2,10 @@ package com.dev.condominio.domain.model;
 
 import com.dev.condominio.domain.model.Owner;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,7 +13,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "subscription")
+@Table(name = "table_subscription")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Subscription {
 
     @Id

@@ -1,6 +1,10 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,8 +12,12 @@ import java.util.List;
 import java.util.UUID;
 
 
-@Table(name = "cond")
+@Table(name = "table_cond")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cond {
 
     @Id
