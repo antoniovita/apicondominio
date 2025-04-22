@@ -1,6 +1,9 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,14 +21,17 @@ public class Reserve {
 
     @ManyToOne
     @JoinColumn(name = "place_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "cond_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cond cond;
 
     @OneToOne

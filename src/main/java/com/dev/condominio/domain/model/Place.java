@@ -1,6 +1,8 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.UUID;
 
@@ -20,5 +22,10 @@ public class Place {
 
     @OneToMany(mappedBy = "place_id")
     private Reserve reserve;
+
+    @ManyToOne
+    @JoinColumn(name = "cond_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Cond cond;
 
 }

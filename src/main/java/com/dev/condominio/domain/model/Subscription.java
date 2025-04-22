@@ -2,6 +2,8 @@ package com.dev.condominio.domain.model;
 
 import com.dev.condominio.domain.model.Owner;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -34,6 +36,7 @@ public class Subscription {
 
     @OneToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Owner owner;
 
 }

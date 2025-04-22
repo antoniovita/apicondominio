@@ -1,6 +1,8 @@
 package com.dev.condominio.domain.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +45,7 @@ public class Cond {
 
     @OneToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Owner owner;
 
     @OneToMany(mappedBy = "cond")
