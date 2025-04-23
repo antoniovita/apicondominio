@@ -36,6 +36,18 @@ public class UserService {
 
     //create user
     public User createUser(User user) {
+        if(userRepository.existsByCpf(user.getCpf())) {
+            throw new IllegalArgumentException("CPF já cadastrado.");
+        }
+
+        if(userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email já cadastrado.");
+        }
+
+        if(userRepository.existsByName(user.getName())) {
+            throw new IllegalArgumentException("Nome já cadastrado.");
+        }
+
         return userRepository.save(user);
     }
 
@@ -73,4 +85,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+
 }

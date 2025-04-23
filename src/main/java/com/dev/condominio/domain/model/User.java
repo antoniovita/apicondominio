@@ -33,6 +33,12 @@ public class User {
     @Column(nullable = false, unique = true)
     private String cpf;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = false)
+    private String password;
+
     @Column(nullable = false, unique = false)
     private Short bloco;
 
