@@ -1,8 +1,12 @@
 package com.dev.condominio.service;
 
+import com.dev.condominio.domain.model.Cond;
 import com.dev.condominio.domain.model.User;
 import com.dev.condominio.domain.security.Permission;
 import com.dev.condominio.domain.security.types.UserType;
+import com.dev.condominio.dto.user.UserRequest;
+import com.dev.condominio.dto.user.UserResponse;
+import com.dev.condominio.repository.CondRepository;
 import com.dev.condominio.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,16 +19,34 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-
-    //defines this userRepository is the one from the package so it is able to be used here
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    //userToResponse method in order to transform a User into an UserResponse
+    private UserResponse userToResponse(User user) {
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getCpf(),
+                user.getEmail(),
+                user.getApt(),
+                user.getBloco(),
+                user.getType(),
+                user.getCond().getId(),
+                user.getPermissions()
+        );
     }
 
+
+    // define the repositories needed to use JPA methods in order to consume data from the database
+    private final UserRepository userRepository;
+    private final CondRepository condRepository;
+    public UserService(UserRepository userRepository, CondRepository condRepository) {
+        this.userRepository = userRepository;
+        this.condRepository = condRepository;
+    }
+
+
     //find all users
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserResponse> findAll() {
+        return userRepository.findAll().stream().map(this::userToResponse).toList();
     }
 
 
@@ -34,21 +56,35 @@ public class UserService {
     }
 
 
-    //create user
-    public User createUser(User user) {
-        if(userRepository.existsByCpf(user.getCpf())) {
+    //create user using UserRequest and return a UserResponse using method userToResponse
+    public UserResponse createUser(UserRequest request) {
+        if(userRepository.existsByCpf(request.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado.");
         }
 
-        if(userRepository.existsByEmail(user.getEmail())) {
+        if(userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email já cadastrado.");
         }
 
-        if(userRepository.existsByName(user.getName())) {
+        if(userRepository.existsByName(request.getName())) {
             throw new IllegalArgumentException("Nome já cadastrado.");
         }
 
-        return userRepository.save(user);
+        // get cond by id
+        Cond cond = condRepository.findById(request.getCondId()).orElseThrow(() -> new EntityNotFoundException("Condomínio não encontrado."));
+
+        User user = new User();
+
+        user.setName(request.getName());
+        user.setCpf(request.getCpf());
+        user.setEmail(request.getEmail());
+        user.setBloco(request.getBloco());
+        user.setApt(request.getApt());
+        user.setType(request.getType());
+        user.setCond(cond);
+
+        User saved =  userRepository.save(user);
+        return userToResponse(saved);
     }
 
 
@@ -60,16 +96,25 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    //update user
-    public User updateUser(UUID id, User updatedData) {
+    //update user and convert it to UserResponse
+    public UserResponse updateUser(UUID id, UserRequest request) {
+
         User user = findById(id);
-        user.setName(updatedData.getName());
-        user.setCpf(updatedData.getCpf());
-        user.setBloco(updatedData.getBloco());
-        user.setApt(updatedData.getApt());
-        user.setCond(updatedData.getCond());
-        user.setType(updatedData.getType());
-        return userRepository.save(user);
+
+        Cond cond = condRepository.findById(request.getCondId()).orElseThrow(() -> new EntityNotFoundException("Condomínio não encontrado."));
+
+        user.setName(request.getName());
+        user.setCpf(request.getCpf());
+        user.setEmail(request.getEmail());
+        user.setBloco(request.getBloco());
+        user.setApt(request.getApt());
+        user.setType(request.getType());
+        user.setCond(cond);
+
+        User updated = userRepository.save(user);
+
+        return userToResponse(updated);
+
     }
 
 

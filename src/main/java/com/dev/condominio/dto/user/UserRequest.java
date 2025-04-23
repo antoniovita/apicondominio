@@ -26,7 +26,7 @@ public class UserRequest {
     public String email;
 
     @NotNull
-    public Integer apt;
+    public Short apt;
 
     @NotNull
     public Short bloco;

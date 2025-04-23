@@ -43,7 +43,7 @@ public class User {
     private Short bloco;
 
     @Column(nullable = false, unique = false)
-    private Integer apt;
+    private Short apt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

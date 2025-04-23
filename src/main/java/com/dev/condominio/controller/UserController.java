@@ -4,7 +4,6 @@ import com.dev.condominio.domain.security.types.UserType;
 import com.dev.condominio.dto.user.UserRequest;
 import com.dev.condominio.dto.user.UserResponse;
 import com.dev.condominio.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
