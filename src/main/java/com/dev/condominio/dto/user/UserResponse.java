@@ -1,6 +1,5 @@
 package com.dev.condominio.dto.user;
 
-import com.dev.condominio.domain.security.types.UserType;
 import com.dev.condominio.domain.security.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +20,7 @@ public class UserResponse {
     private String email;
     private Short apt;
     private Short bloco;
-    private UserType type;
+    private Set<String> roles;
     private UUID condId;
     private Set<Permission> permissions;
 }

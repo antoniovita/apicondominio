@@ -1,6 +1,5 @@
 package com.dev.condominio.dto.user;
 
-import com.dev.condominio.domain.security.types.UserType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -32,7 +32,7 @@ public class UserRequest {
     public Short bloco;
 
     @NotNull
-    public UserType type;
+    public Set<String> roles;
 
     @NotNull
     public UUID condId;

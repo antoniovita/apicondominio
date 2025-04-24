@@ -1,6 +1,7 @@
 package com.dev.condominio.domain.model;
 
-import com.dev.condominio.domain.security.types.UserType;
+import com.dev.condominio.domain.security.Role;
+import com.dev.condominio.domain.security.Permission;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,12 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import com.dev.condominio.domain.security.Permission;
+import java.util.*;
 
 @Entity
 @Table(name = "table_user")
@@ -21,7 +21,7 @@ import com.dev.condominio.domain.security.Permission;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -36,19 +36,22 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private Short bloco;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private Short apt;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserType type;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "cond_id", nullable = false)
@@ -58,25 +61,48 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reserve> reserve;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(
-            name = "user_permissions",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Column(name = "permission", nullable = false)
-    private Set<Permission> permissions = new HashSet<>();
+    //spring security
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
 
-    @PreUpdate
-    private void assignDefaultPermissions() {
-        if (permissions == null || permissions.isEmpty()) {
-            this.permissions = new HashSet<>(type.getDefaultPermissions());
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            for (Permission permission : role.getPermissions()) {
+                authorities.add(new SimpleGrantedAuthority(permission.name()));
+            }
         }
+
+        return authorities;
     }
 
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
 
+    @Override
+    public String getUsername() {
+        return this.email; // email here is used as login
+    }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
