@@ -17,23 +17,23 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserRequest {
     @NotBlank
-    public String name;
+    private String name;
 
     @NotBlank
-    public String cpf;
+    private String cpf;
 
     @NotBlank
-    public String email;
+    private String email;
 
     @NotNull
-    public Short apt;
+    private Short apt;
 
     @NotNull
-    public Short bloco;
+    private Short bloco;
 
     @NotNull
-    public Set<String> roles;
+    private Set<UUID> roleIds;
 
     @NotNull
-    public UUID condId;
+    private UUID condId;
 }
