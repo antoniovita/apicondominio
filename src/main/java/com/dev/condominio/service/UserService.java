@@ -22,7 +22,7 @@
     public class UserService {
 
         //userToResponse method in order to transform a User into an UserResponse
-        private UserResponse userToResponse(User user) {
+        public UserResponse userToResponse(User user) {
             Set<String> roleNames = user.getRoles().stream()
                     .map(Role::getName)
                     .collect(Collectors.toSet());
@@ -57,7 +57,7 @@
             this.roleRepository = roleRepository;
         }
 
-        private Set<Role> getRolesFromRequest(UserRequest request) {
+        public Set<Role> getRolesFromRequest(UserRequest request) {
             if (request.getRoleIds() == null || request.getRoleIds().isEmpty()) {
                 throw new IllegalArgumentException("Pelo menos uma role deve ser informada.");
             }
@@ -76,10 +76,19 @@
         }
 
 
+        //find all users from a cond
+        public List<UserResponse> findAllByCondId(UUID condId) {
+            List<User> users = userRepository.findAllByCondId(condId);
+            return users.stream()
+                    .map(this::userToResponse)
+                    .collect(Collectors.toList());
+        }
+
         //find user by id
         public User findById(UUID id) {
             return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
         }
+
 
         //validating the fields before creating and updating
         private void validateUniqueFields(UserRequest request, UUID userId) {

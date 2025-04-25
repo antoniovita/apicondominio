@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByCpf(String cpf);
@@ -14,4 +15,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByCpf(String cpf);
     Optional<User> findByEmail(String email);
     Optional<User> findByName(String name);
+    List<User> findAllByCondId(UUID condId);
 }
