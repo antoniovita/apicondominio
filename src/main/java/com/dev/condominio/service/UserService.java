@@ -2,7 +2,7 @@
 
     import com.dev.condominio.domain.model.Cond;
     import com.dev.condominio.domain.model.User;
-    import com.dev.condominio.domain.security.Role;
+    import com.dev.condominio.domain.security.permission.Role;
     import com.dev.condominio.dto.user.UserRequest;
     import com.dev.condominio.dto.user.UserResponse;
     import com.dev.condominio.repository.CondRepository;

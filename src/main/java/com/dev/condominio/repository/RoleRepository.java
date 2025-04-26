@@ -1,6 +1,6 @@
 package com.dev.condominio.repository;
 
-import com.dev.condominio.domain.security.Role;
+import com.dev.condominio.domain.security.permission.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

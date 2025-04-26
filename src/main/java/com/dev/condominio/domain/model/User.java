@@ -1,7 +1,7 @@
 package com.dev.condominio.domain.model;
 
-import com.dev.condominio.domain.security.Role;
-import com.dev.condominio.domain.security.Permission;
+import com.dev.condominio.domain.security.permission.Role;
+import com.dev.condominio.domain.security.permission.Permission;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.dev.condominio.domain.security;
+package com.dev.condominio.domain.security.permission;
 
 public enum Permission {
 

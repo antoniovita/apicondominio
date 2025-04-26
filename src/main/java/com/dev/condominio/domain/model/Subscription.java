@@ -1,6 +1,5 @@
 package com.dev.condominio.domain.model;
 
-import com.dev.condominio.domain.model.Owner;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

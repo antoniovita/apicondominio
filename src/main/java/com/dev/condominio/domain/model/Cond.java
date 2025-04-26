@@ -33,9 +33,7 @@ public class Cond {
     @Column(nullable = false, unique = true)
     private Integer accessNumber;
 
-    @OneToMany(mappedBy = "cond")
-    private List<Adm> adm;
-
+    // all users including owner
     @OneToMany(mappedBy = "cond")
     private List<User> user;
 
@@ -51,10 +49,11 @@ public class Cond {
     @OneToMany(mappedBy = "cond")
     private List<Reserve> reserve;
 
+    //just the user that created the cond
     @OneToOne
     @JoinColumn(name = "owner_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Owner owner;
+    private User owner;
 
     @OneToMany(mappedBy = "cond")
     private List<Communicates> communicates;
