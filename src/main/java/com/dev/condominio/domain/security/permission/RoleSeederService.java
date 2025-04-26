@@ -52,9 +52,18 @@ public class RoleSeederService {
                     )
             );
 
+            Role companyRole = new Role(
+                    UUID.randomUUID(),
+                    "ROLE_COMPANY",
+                    Set.of(
+
+                    )
+            );
+
             roleRepository.save(ownerRole);
             roleRepository.save(defaultRole);
             roleRepository.save(admRole);
+            roleRepository.save(companyRole);
         }
     }
 }

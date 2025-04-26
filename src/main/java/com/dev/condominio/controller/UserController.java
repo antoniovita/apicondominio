@@ -32,7 +32,7 @@ public class UserController {
     //ADM only
     // GET /user get all users
     @GetMapping
-    @PreAuthorize("hasAuthority('ADM')")
+    @PreAuthorize("hasAuthority('')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());
     }
@@ -52,10 +52,10 @@ public class UserController {
     }
 
 
-    // ADM only
+    // just the user and the ones with the MANAGE_USER permission such as ROLE_ADM and ROLE_OWNER
     // PUT /user/{id} update user
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADM')")
+    @PreAuthorize("#id == authentication.principal.id or hasAuthority('MANAGE_USER')")
     public ResponseEntity<UserResponse> updateUser(@PathVariable UUID id, @Valid @RequestBody UserRequest request) {
         return ResponseEntity.ok(userService.updateUser(id, request));
     }

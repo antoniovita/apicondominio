@@ -69,13 +69,14 @@
         }
 
 
-
+        // ROUTE!!!
         //find all users
         public List<UserResponse> findAll() {
             return userRepository.findAll().stream().map(this::userToResponse).toList();
         }
 
 
+        // ROUTE!!!
         //find all users from a cond
         public List<UserResponse> findAllByCondId(UUID condId) {
             List<User> users = userRepository.findAllByCondId(condId);
@@ -84,11 +85,11 @@
                     .collect(Collectors.toList());
         }
 
+        // ROUTE!!!
         //find user by id
         public User findById(UUID id) {
             return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
         }
-
 
         //validating the fields before creating and updating
         private void validateUniqueFields(UserRequest request, UUID userId) {
@@ -114,6 +115,7 @@
 
 
 
+        // ROUTE!!!
         //create user using UserRequest and return a UserResponse using method userToResponse
         public UserResponse createUser(UserRequest request) {
 
@@ -141,6 +143,7 @@
         }
 
 
+        // ROUTE!!!
         //delete user by id
         public void deleteUser(UUID id) {
             if (!userRepository.existsById(id)) {
@@ -149,6 +152,9 @@
             userRepository.deleteById(id);
         }
 
+
+
+        // ROUTE!!!
         //update user and convert it to UserResponse
         public UserResponse updateUser(UUID id, UserRequest request) {
             User user = findById(id);
@@ -176,7 +182,7 @@
         }
 
 
-
+        // ROUTE!!!
         // update the permissions from UserType
         @Transactional
         public User updateRoles(UUID userId, Set<UUID> roleIds) {
