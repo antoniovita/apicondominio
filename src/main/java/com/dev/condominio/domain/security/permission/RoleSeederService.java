@@ -27,7 +27,8 @@ public class RoleSeederService {
                             Permission.EDIT_COMMUNICATES,
                             Permission.VOTE,
                             Permission.CREATE_RESERVE,
-                            Permission.MANAGE_USER
+                            Permission.MANAGE_USER,
+                            Permission.MANAGE_COND
                     )
             );
 
@@ -49,7 +50,8 @@ public class RoleSeederService {
                             Permission.POST_COMMUNICATES,
                             Permission.EDIT_COMMUNICATES,
                             Permission.MANAGE_USER,
-                            Permission.CREATE_VOTATION
+                            Permission.CREATE_VOTATION,
+                            Permission.MANAGE_COND
                     )
             );
 
@@ -64,7 +66,8 @@ public class RoleSeederService {
                             Permission.POST_COMMUNICATES,
                             Permission.EDIT_COMMUNICATES,
                             Permission.MANAGE_USER,
-                            Permission.CREATE_VOTATION
+                            Permission.CREATE_VOTATION,
+                            Permission.MANAGE_COND
                     )
             );
 

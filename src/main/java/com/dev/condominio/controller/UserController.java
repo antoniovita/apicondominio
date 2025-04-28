@@ -6,6 +6,7 @@ import com.dev.condominio.dto.user.UserRequest;
 import com.dev.condominio.dto.user.UserResponse;
 import com.dev.condominio.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,13 +21,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
 
     //method to get info from the user authenticated
     public User getCurrentAuthenticatedUser() {

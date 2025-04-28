@@ -8,7 +8,8 @@ public enum Permission {
     CREATE_RESERVE("Create reserves"),
     MANAGE_USER("Manage users."),
     MANAGE_EVERYTHING("Manage everything. Company only."),
-    CREATE_VOTATION("Create votation.");
+    CREATE_VOTATION("Create votation."),
+    MANAGE_COND("Manage the cond.");
 
     private final String description;
 
