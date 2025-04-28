@@ -22,9 +22,11 @@ public class UserRequest {
     private String name;
 
     @CPF
+    @NotBlank
     private String cpf;
 
-    @Email //to implement
+    @Email
+    @NotBlank
     private String email;
 
     @NotBlank

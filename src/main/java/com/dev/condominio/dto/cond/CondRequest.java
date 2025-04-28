@@ -1,5 +1,6 @@
 package com.dev.condominio.dto.cond;
 
+import com.dev.condominio.domain.security.validation.annotation.CNPJ;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,18 +20,15 @@ public class CondRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
     private String imgUrl;
 
     @NotNull
     private String address;
 
-    @NotNull
+    @NotBlank
+    @CNPJ
     private String cnpj;
 
     @NotNull
-    private Set<UUID> roleIds;
-
-    @NotNull
-    private UUID condId;
+    private UUID ownerId;
 }
