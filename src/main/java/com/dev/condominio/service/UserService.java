@@ -10,6 +10,7 @@
     import com.dev.condominio.repository.RoleRepository;
     import com.dev.condominio.repository.UserRepository;
     import jakarta.persistence.EntityNotFoundException;
+    import lombok.RequiredArgsConstructor;
     import org.springframework.stereotype.Service;
     import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@
     import java.util.stream.Collectors;
 
     @Service
+    @RequiredArgsConstructor
     public class UserService {
 
         //userToResponse method in order to transform a User into an UserResponse
@@ -52,11 +54,6 @@
         private final UserRepository userRepository;
         private final CondRepository condRepository;
         private final RoleRepository roleRepository;
-        public UserService(UserRepository userRepository, CondRepository condRepository, RoleRepository roleRepository) {
-            this.userRepository = userRepository;
-            this.condRepository = condRepository;
-            this.roleRepository = roleRepository;
-        }
 
         public Set<Role> getRolesFromRequest(UserRequest request) {
             if (request.getRoleIds() == null || request.getRoleIds().isEmpty()) {

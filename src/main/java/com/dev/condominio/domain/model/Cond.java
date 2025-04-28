@@ -24,29 +24,32 @@ public class Cond {
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String name;
 
     @Column(nullable = true, unique = true)
     private String imgUrl;
 
+    @Column(nullable = false, unique = false)
+    private String address;
+
     @Column(nullable = false, unique = true)
-    private Integer accessNumber;
+    private String cnpj;
 
     // all users including owner
     @OneToMany(mappedBy = "cond")
     private List<User> user;
 
-    @Column(nullable = false, unique = true)
-    private String cnpj;
-
-    @OneToMany(mappedBy = "cond")
+    @OneToMany(mappedBy = "cond", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Place> place;
 
-    @OneToMany(mappedBy = "cond")
+    @OneToMany(mappedBy = "cond", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Payment> payment;
 
-    @OneToMany(mappedBy = "cond")
+    @OneToMany(mappedBy = "cond", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Reserve> reserve;
 
     //just the user that created the cond
