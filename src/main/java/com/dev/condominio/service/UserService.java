@@ -3,6 +3,7 @@
     import com.dev.condominio.domain.model.Cond;
     import com.dev.condominio.domain.model.User;
     import com.dev.condominio.domain.security.permission.Role;
+    import com.dev.condominio.dto.user.UserMinimalResponse;
     import com.dev.condominio.dto.user.UserRequest;
     import com.dev.condominio.dto.user.UserResponse;
     import com.dev.condominio.repository.CondRepository;
@@ -77,13 +78,27 @@
 
 
         // ROUTE!!!
-        //find all users from a cond
+        //find all users from a cond returning EVERYTHING EVERY SINGLE DATA
         public List<UserResponse> findAllByCondId(UUID condId) {
             List<User> users = userRepository.findAllByCondId(condId);
             return users.stream()
                     .map(this::userToResponse)
-                    .collect(Collectors.toList());
+                    .toList();
         }
+
+
+        //ROUTE!!!
+        //find all users from a cond returning just SIMPLE DATA: name, bloco, apt
+        public List<UserMinimalResponse> findMinimalUsersByCondId(UUID condId) {
+
+            List<User> users = userRepository.findAllByCondId(condId);
+
+            return users.stream()
+                    .map(user -> new UserMinimalResponse(user.getName(), user.getBloco(), user.getApt()))
+                    .toList();
+        }
+
+
 
         // ROUTE!!!
         //find user by id

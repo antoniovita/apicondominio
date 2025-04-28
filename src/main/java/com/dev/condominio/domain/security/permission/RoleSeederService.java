@@ -48,15 +48,23 @@ public class RoleSeederService {
                     Set.of(
                             Permission.POST_COMMUNICATES,
                             Permission.EDIT_COMMUNICATES,
-                            Permission.MANAGE_USER
+                            Permission.MANAGE_USER,
+                            Permission.CREATE_VOTATION
                     )
             );
 
+            //adm from the company can manage everything
             Role companyRole = new Role(
                     UUID.randomUUID(),
                     "ROLE_COMPANY",
                     Set.of(
+                            Permission.MANAGE_EVERYTHING,
 
+                            //standard permissions of adm
+                            Permission.POST_COMMUNICATES,
+                            Permission.EDIT_COMMUNICATES,
+                            Permission.MANAGE_USER,
+                            Permission.CREATE_VOTATION
                     )
             );
 
