@@ -15,20 +15,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CondRequest {
+
     @NotBlank
     private String name;
 
     @NotBlank
     private String imgUrl;
 
-    @NotBlank
-    private String email;
+    @NotNull
+    private String address;
 
     @NotNull
-    private Integer access;
-
-    @NotNull
-    private Short bloco;
+    private String cnpj;
 
     @NotNull
     private Set<UUID> roleIds;
