@@ -61,6 +61,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Reserve> reserve;
 
+    @OneToMany(mappedBy = "communicates")
+    private List<Communicates> communicates;
+
     //spring security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

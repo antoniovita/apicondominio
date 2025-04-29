@@ -5,14 +5,10 @@ import com.dev.condominio.domain.model.User;
 import com.dev.condominio.dto.cond.CondMinimalResponse;
 import com.dev.condominio.dto.cond.CondRequest;
 import com.dev.condominio.dto.cond.CondResponse;
-import com.dev.condominio.dto.user.UserMinimalResponse;
 import com.dev.condominio.repository.CondRepository;
 import com.dev.condominio.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,16 +21,6 @@ public class CondService {
 
     private final CondRepository condRepository;
     private final UserRepository userRepository;
-
-    //method to get info from the user authenticated
-    public User getCurrentAuthenticatedUser() {
-        //getting info from the context
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            return (User) authentication.getPrincipal();
-        }
-        throw new UsernameNotFoundException("Usuário não autenticado.");
-    }
 
 
     public CondResponse condToResponse(Cond cond) {

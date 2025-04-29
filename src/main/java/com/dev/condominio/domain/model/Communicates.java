@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "table_warning")
+@Table(name = "table_communicates")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,4 +36,14 @@ public class Communicates {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Cond cond;
 
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        this.date = LocalDateTime.now();
+    }
 }

@@ -25,6 +25,15 @@ public class CondController {
 
     private final CondService condService;
 
+    //method to get info from the user authenticated
+    public User getCurrentAuthenticatedUser() {
+        //getting info from the context
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return (User) authentication.getPrincipal();
+        }
+        throw new UsernameNotFoundException("Usuário não autenticado.");
+    }
 
     // route
     // create a cond
@@ -52,20 +61,20 @@ public class CondController {
 
     //route
     //get cond complete info, company only
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('MANAGE_EVERYTHING')")
-    public ResponseEntity<CondResponse> getCondById( UUID id) {
+    public ResponseEntity<CondResponse> getCondById( @PathVariable UUID id) {
         return ResponseEntity.ok(condService.findById(id));
     }
 
     //route
     //get cond info just simple, everybody from the cond can see
-    @GetMapping
+    @GetMapping("/simple")
     public ResponseEntity<CondResponse> getCondByIdSimple(UUID id) {
 
         User currentUser = getCurrentAuthenticatedUser();
 
-        if (!currentUser.getCond().equals(condId)) {
+        if (!currentUser.getCond().equals(id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
